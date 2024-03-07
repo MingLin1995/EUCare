@@ -1,0 +1,210 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "AppController_getHello",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/members/register": {
+            "post": {
+                "operationId": "MembersController_register",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "註冊成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "註冊失敗",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "members"
+                ]
+            }
+        },
+        "/members/login": {
+            "post": {
+                "operationId": "MembersController_login",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "登入成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "登入失敗",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "members"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "EUCare API",
+        "description": "EUCare API description",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [
+        {
+            "name": "EUCare",
+            "description": ""
+        }
+    ],
+    "servers": [],
+    "components": {
+        "schemas": {
+            "RegisterDto": {
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "type": "string",
+                        "example": "0912345678",
+                        "description": "電話號碼"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "123456",
+                        "description": "密碼"
+                    }
+                },
+                "required": [
+                    "phoneNumber",
+                    "password"
+                ]
+            },
+            "RegisterResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1,
+                        "description": "用戶ID"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "example": "0912345678",
+                        "description": "電話號碼"
+                    }
+                },
+                "required": [
+                    "id",
+                    "phoneNumber"
+                ]
+            },
+            "ErrorResponseDto": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number",
+                        "description": "HTTP 狀態碼",
+                        "example": "例如 401 或 409。"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "錯誤訊息",
+                        "example": "例如「電話號碼已被註冊」或「此電話號碼尚未註冊」或「密碼錯誤」。"
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "錯誤類型",
+                        "example": "例如「Conflict」或「Unauthorized」。"
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "error"
+                ]
+            },
+            "LoginDto": {
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "type": "string",
+                        "example": "0912345678",
+                        "description": "電話號碼"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "123456",
+                        "description": "密碼"
+                    }
+                },
+                "required": [
+                    "phoneNumber",
+                    "password"
+                ]
+            },
+            "LoginResponseDto": {
+                "type": "object",
+                "properties": {
+                    "accessToken": {
+                        "type": "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                        "description": "JWT Access Token"
+                    }
+                },
+                "required": [
+                    "accessToken"
+                ]
+            }
+        }
+    }
+}

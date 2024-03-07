@@ -1,0 +1,14 @@
+# 依賴
+node_modules/
+
+# 開發者工具和編輯器目錄
+.idea/
+.vscode/
+
+# 日誌文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 系統文件
+.DS_Store
