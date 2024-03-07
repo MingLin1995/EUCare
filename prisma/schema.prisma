@@ -13,9 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
 model Member {
   id         Int       @id @default(autoincrement())
   phoneNumber String    @unique
@@ -29,10 +26,12 @@ model Patient {
   identityNo  String    @unique
   birthdate   DateTime
   address     String
-  memberId    Int
+  memberId    Int       // 將 memberId 定義為必需的外鍵
   member      Member    @relation(fields: [memberId], references: [id])
   appointments Appointment[]
 }
+
+
 
 model Appointment {
   id        Int      @id @default(autoincrement())
