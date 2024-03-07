@@ -93,6 +93,69 @@
                     "members"
                 ]
             }
+        },
+        "/patients": {
+            "post": {
+                "operationId": "PatientsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreatePatientDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "病患資料建立成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatientResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "該病患資料已經存在",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "patients"
+                ]
+            },
+            "get": {
+                "operationId": "PatientsController_searchAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "取得所有病患資料",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PatientSearchResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "patients"
+                ]
+            }
         }
     },
     "info": {
@@ -153,18 +216,18 @@
                 "properties": {
                     "statusCode": {
                         "type": "number",
-                        "description": "HTTP 狀態碼",
-                        "example": "例如 401 或 409。"
+                        "example": 409,
+                        "description": "HTTP 狀態碼"
                     },
                     "message": {
                         "type": "string",
-                        "description": "錯誤訊息",
-                        "example": "例如「電話號碼已被註冊」或「此電話號碼尚未註冊」或「密碼錯誤」。"
+                        "example": "該病患資料已經存在",
+                        "description": "錯誤訊息"
                     },
                     "error": {
                         "type": "string",
-                        "description": "錯誤類型",
-                        "example": "例如「Conflict」或「Unauthorized」。"
+                        "example": "Conflict",
+                        "description": "錯誤描述"
                     }
                 },
                 "required": [
@@ -203,6 +266,111 @@
                 },
                 "required": [
                     "accessToken"
+                ]
+            },
+            "CreatePatientDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "林小銘",
+                        "description": "病患姓名"
+                    },
+                    "identityNo": {
+                        "type": "string",
+                        "example": "A123456789",
+                        "description": "身分證字號"
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "example": "1980-01-01",
+                        "description": "出生年月日"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "台北市",
+                        "description": "住址"
+                    }
+                },
+                "required": [
+                    "name",
+                    "identityNo",
+                    "birthdate",
+                    "address"
+                ]
+            },
+            "PatientResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 15,
+                        "description": "病患 ID"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "林小銘",
+                        "description": "病患姓名"
+                    },
+                    "identityNo": {
+                        "type": "string",
+                        "example": "A123456789",
+                        "description": "身分證字號"
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "example": "1980-01-01",
+                        "description": "出生年月日"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "台北市",
+                        "description": "住址"
+                    },
+                    "memberId": {
+                        "type": "number",
+                        "example": 4,
+                        "description": "會員 ID"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "identityNo",
+                    "birthdate",
+                    "address",
+                    "memberId"
+                ]
+            },
+            "PatientSearchResponseDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "林小銘",
+                        "description": "病患姓名"
+                    },
+                    "identityNo": {
+                        "type": "string",
+                        "example": "A123456789",
+                        "description": "身分證字號"
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "example": "1980-01-01",
+                        "description": "出生年月日"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "台北市",
+                        "description": "住址"
+                    }
+                },
+                "required": [
+                    "name",
+                    "identityNo",
+                    "birthdate",
+                    "address"
                 ]
             }
         }
