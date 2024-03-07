@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ErrorResponseDto {
+export class MemberErrorResponseDto {
 @ApiProperty({
     description: 'HTTP 狀態碼',
     example: '例如 401 或 409。'

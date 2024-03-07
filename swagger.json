@@ -42,7 +42,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseDto"
+                                    "$ref": "#/components/schemas/MemberErrorResponseDto"
                                 }
                             }
                         }
@@ -83,7 +83,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseDto"
+                                    "$ref": "#/components/schemas/MemberErrorResponseDto"
                                 }
                             }
                         }
@@ -124,7 +124,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseDto"
+                                    "$ref": "#/components/schemas/PatientErrorResponseDto"
                                 }
                             }
                         }
@@ -211,23 +211,23 @@
                     "phoneNumber"
                 ]
             },
-            "ErrorResponseDto": {
+            "MemberErrorResponseDto": {
                 "type": "object",
                 "properties": {
                     "statusCode": {
                         "type": "number",
-                        "example": 409,
-                        "description": "HTTP 狀態碼"
+                        "description": "HTTP 狀態碼",
+                        "example": "例如 401 或 409。"
                     },
                     "message": {
                         "type": "string",
-                        "example": "該病患資料已經存在",
-                        "description": "錯誤訊息"
+                        "description": "錯誤訊息",
+                        "example": "例如「電話號碼已被註冊」或「此電話號碼尚未註冊」或「密碼錯誤」。"
                     },
                     "error": {
                         "type": "string",
-                        "example": "Conflict",
-                        "description": "錯誤描述"
+                        "description": "錯誤類型",
+                        "example": "例如「Conflict」或「Unauthorized」。"
                     }
                 },
                 "required": [
@@ -340,6 +340,31 @@
                     "birthdate",
                     "address",
                     "memberId"
+                ]
+            },
+            "PatientErrorResponseDto": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number",
+                        "example": 409,
+                        "description": "HTTP 狀態碼"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "該病患資料已經存在",
+                        "description": "錯誤訊息"
+                    },
+                    "error": {
+                        "type": "string",
+                        "example": "Conflict",
+                        "description": "錯誤描述"
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "error"
                 ]
             },
             "PatientSearchResponseDto": {
