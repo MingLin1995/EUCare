@@ -1,3 +1,5 @@
+// src/members/dto/login.dto.ts
+
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginDto {
@@ -7,4 +9,3 @@ export class LoginDto {
   @ApiProperty({ example: '123456', description: '密碼' })
   password: string;
 }
-

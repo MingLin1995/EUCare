@@ -1,9 +1,8 @@
-// patient-response.dto.ts
+// src/patients/dto/patient-response.dto.ts
 
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PatientResponseDto {
-
   @ApiProperty({ example: 15, description: '病患 ID' })
   id: number;
 
@@ -24,7 +23,6 @@ export class PatientResponseDto {
 }
 
 export class PatientSearchResponseDto {
-
   @ApiProperty({ example: '林小銘', description: '病患姓名' })
   name: string;
 
