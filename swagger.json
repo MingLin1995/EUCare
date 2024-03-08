@@ -156,6 +156,69 @@
                     "patients"
                 ]
             }
+        },
+        "/appointments": {
+            "post": {
+                "operationId": "AppointmentsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAppointmentDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "預約成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "預約失敗",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AppointmentErrorResponseDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "appointments"
+                ]
+            },
+            "get": {
+                "operationId": "AppointmentsController_searchAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "取得所有預約資料",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AppointmentResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "appointments"
+                ]
+            }
         }
     },
     "info": {
@@ -396,6 +459,87 @@
                     "identityNo",
                     "birthdate",
                     "address"
+                ]
+            },
+            "CreateAppointmentDto": {
+                "type": "object",
+                "properties": {
+                    "patientId": {
+                        "type": "number",
+                        "example": 1,
+                        "description": "病患 ID"
+                    },
+                    "date": {
+                        "type": "string",
+                        "example": "2024-03-14 06:00",
+                        "description": "預約日期和時間"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "約體檢",
+                        "description": "預約內容"
+                    }
+                },
+                "required": [
+                    "patientId",
+                    "date",
+                    "content"
+                ]
+            },
+            "AppointmentResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 52,
+                        "description": "預約ID"
+                    },
+                    "patientId": {
+                        "type": "number",
+                        "example": 26,
+                        "description": "病患ID"
+                    },
+                    "date": {
+                        "type": "string",
+                        "example": "03/14/2024, 09:00",
+                        "description": "預約日期和時間"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "約體檢",
+                        "description": "預約內容"
+                    }
+                },
+                "required": [
+                    "id",
+                    "patientId",
+                    "date",
+                    "content"
+                ]
+            },
+            "AppointmentErrorResponseDto": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number",
+                        "example": 409,
+                        "description": "HTTP 狀態碼"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "預約必須為整點時段、每位使用者最多可預約5個時段或每位病患最多可預約2個時段",
+                        "description": "錯誤訊息"
+                    },
+                    "error": {
+                        "type": "string",
+                        "example": "Conflict",
+                        "description": "錯誤描述"
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "error"
                 ]
             }
         }
