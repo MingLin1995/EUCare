@@ -4,7 +4,7 @@ import { PatientsService } from './patients.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PatientResponseDto,PatientSearchResponseDto } from './dto/patient-response.dto';
-import { ErrorResponseDto } from './dto/error-response.dto';
+import { PatientErrorResponseDto } from './dto/patients-error-response.dto';
 
 @ApiTags('patients')
 @Controller('patients')
@@ -14,7 +14,7 @@ export class PatientsController {
   @UseGuards(JwtAuthGuard)
   @Post()
   @ApiResponse({ status: 201, description: '病患資料建立成功', type: PatientResponseDto })
-  @ApiResponse({ status: 409, description: '該病患資料已經存在', type: ErrorResponseDto })
+  @ApiResponse({ status: 409, description: '該病患資料已經存在', type: PatientErrorResponseDto })
   async create(@Req() req, @Body() createPatientDto: CreatePatientDto) {
     return this.patientsService.create(req.user.userId, createPatientDto);
   }
