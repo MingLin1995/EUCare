@@ -1,8 +1,14 @@
-import { Injectable, ConflictException, UnauthorizedException } from '@nestjs/common';
+// src/members/members.service.ts
+
+import {
+  Injectable,
+  ConflictException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from '../../prisma/prisma.service'; 
-import { JwtService } from '@nestjs/jwt'; 
-import { Member } from '@prisma/client'; 
+import { PrismaService } from '../../prisma/prisma.service';
+import { JwtService } from '@nestjs/jwt';
+import { Member } from '@prisma/client';
 
 @Injectable()
 export class MembersService {
@@ -11,6 +17,7 @@ export class MembersService {
     private readonly jwtService: JwtService,
   ) {}
 
+  // 註冊
   async register(phoneNumber: string, password: string): Promise<Member> {
     const existingMember = await this.prisma.member.findUnique({
       where: { phoneNumber },
@@ -31,7 +38,8 @@ export class MembersService {
     return member;
   }
 
-async login(phoneNumber: string, password: string): Promise<string> {
+  // 登入
+  async login(phoneNumber: string, password: string): Promise<string> {
     const member = await this.prisma.member.findUnique({
       where: { phoneNumber },
     });

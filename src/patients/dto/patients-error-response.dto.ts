@@ -1,8 +1,8 @@
-// src/common/dto/error-response.dto.ts
+// src/patients/dto/patients-error-response.dto.ts
 
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ErrorResponseDto {
+export class PatientErrorResponseDto {
   @ApiProperty({ example: 409, description: 'HTTP 狀態碼' })
   statusCode: number;
 
