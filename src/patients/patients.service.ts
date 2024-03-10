@@ -3,6 +3,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
+import { PatientSearchResponseDto } from './dto/patient-response.dto';
 
 @Injectable()
 export class PatientsService {
@@ -30,7 +31,7 @@ export class PatientsService {
   }
 
   // 查詢病患資料
-  async findAll(memberId: number): Promise<any[]> {
+  async findAll(memberId: number): Promise<PatientSearchResponseDto[]> {
     const patients = await this.prisma.patient.findMany({
       where: { memberId: memberId },
     });
