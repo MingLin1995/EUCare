@@ -29,7 +29,7 @@ export class AppointmentsController {
   async create(
     @Req() req,
     @Body() createAppointmentDto: CreateAppointmentDto,
-  ): Promise<any> {
+  ): Promise<AppointmentResponseDto> {
     const appointment = await this.appointmentsService.create(
       req.user.userId,
       createAppointmentDto,
@@ -39,12 +39,7 @@ export class AppointmentsController {
     appointmentResponseDto.patientId = appointment.patientId;
     appointmentResponseDto.date = appointment.date;
     appointmentResponseDto.content = appointment.content;
-    return {
-      id: appointmentResponseDto.id,
-      patientId: appointmentResponseDto.patientId,
-      date: appointmentResponseDto.date,
-      content: appointmentResponseDto.content,
-    };
+    return appointmentResponseDto;
   }
 
   // 取得預約資料
@@ -55,17 +50,17 @@ export class AppointmentsController {
     description: '取得所有預約資料',
     type: [AppointmentResponseDto],
   })
-  async searchAll(@Req() req): Promise<any[]> {
+  async searchAll(@Req() req): Promise<AppointmentResponseDto[]> {
     const appointments = await this.appointmentsService.findAll(
       req.user.userId,
     );
     return appointments.map((appointmentDto) => {
-      return {
-        id: appointmentDto.id,
-        patientId: appointmentDto.patientId,
-        date: appointmentDto.date,
-        content: appointmentDto.content,
-      };
+      const appointmentResponseDto = new AppointmentResponseDto();
+      appointmentResponseDto.id = appointmentDto.id;
+      appointmentResponseDto.patientId = appointmentDto.patientId;
+      appointmentResponseDto.date = appointmentDto.date;
+      appointmentResponseDto.content = appointmentDto.content;
+      return appointmentResponseDto;
     });
   }
 }
