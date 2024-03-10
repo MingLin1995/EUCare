@@ -42,7 +42,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MemberErrorResponseDto"
+                                    "$ref": "#/components/schemas/RegisterErrorResponseDto"
                                 }
                             }
                         }
@@ -83,7 +83,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MemberErrorResponseDto"
+                                    "$ref": "#/components/schemas/LoginErrorResponseDto"
                                 }
                             }
                         }
@@ -274,23 +274,23 @@
                     "phoneNumber"
                 ]
             },
-            "MemberErrorResponseDto": {
+            "RegisterErrorResponseDto": {
                 "type": "object",
                 "properties": {
                     "statusCode": {
                         "type": "number",
                         "description": "HTTP 狀態碼",
-                        "example": "例如 401 或 409。"
+                        "example": "409"
                     },
                     "message": {
                         "type": "string",
                         "description": "錯誤訊息",
-                        "example": "例如「電話號碼已被註冊」或「此電話號碼尚未註冊」或「密碼錯誤」。"
+                        "example": "密碼錯誤"
                     },
                     "error": {
                         "type": "string",
                         "description": "錯誤類型",
-                        "example": "例如「Conflict」或「Unauthorized」。"
+                        "example": "Conflict"
                     }
                 },
                 "required": [
@@ -329,6 +329,31 @@
                 },
                 "required": [
                     "accessToken"
+                ]
+            },
+            "LoginErrorResponseDto": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number",
+                        "description": "HTTP 狀態碼",
+                        "example": "401"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "錯誤訊息",
+                        "example": "「電話號碼已被註冊」或「此電話號碼尚未註冊」。"
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "錯誤類型",
+                        "example": "Unauthorized"
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "error"
                 ]
             },
             "CreatePatientDto": {
